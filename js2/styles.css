@@ -1,0 +1,34 @@
+.clickable {
+  background-color: yellow;
+  cursor: pointer;
+}
+
+.clicked {
+  background-color: green;
+  cursor: not-allowed;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  width: 120px;
+  height: 120px;
+  margin-top: 20px;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
+  width: 80px;
+  height: 80px;
+}
+
+p {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+}
