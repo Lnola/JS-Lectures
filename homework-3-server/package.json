@@ -5,11 +5,10 @@
   "main": "./src/app.ts",
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register src/app.ts",
-    "model:create": "npx sequelize-cli model:generate --name",
-    "migration:create": "npx sequelize-cli migration:create --name",
-    "migration:run": "npx sequelize-cli db:migrate",
-    "migration:undo": "npx sequelize-cli db:migrate:undo",
-    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all"
+    "db:migration:create": "npx sequelize-cli migration:create --name",
+    "db:migration:up": "npx sequelize-cli db:migrate",
+    "db:migration:down": "npx sequelize-cli db:migrate:undo",
+    "db:migration:down:all": "npx sequelize-cli db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
