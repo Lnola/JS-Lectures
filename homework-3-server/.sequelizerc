@@ -1,5 +1,5 @@
 module.exports = {
-  config: 'src/shared/database/config/config.json',
-  'migrations-path': 'src/shared/database/migrations',
+  config: 'src/db/config.json',
+  'migrations-path': 'src/db/migrations',
   'models-path': 'src/',
 };
