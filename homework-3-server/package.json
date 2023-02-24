@@ -2,19 +2,14 @@
   "name": "homework-3-server",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "./src/app.ts",
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register src/app.ts",
-    "prod": "node src/app.js",
     "model:create": "npx sequelize-cli model:generate --name",
     "migration:create": "npx sequelize-cli migration:create --name",
     "migration:run": "npx sequelize-cli db:migrate",
     "migration:undo": "npx sequelize-cli db:migrate:undo",
-    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all",
-    "seed:create": "npx sequelize-cli seed:generate --name",
-    "seed:run": "npx sequelize-cli db:seed:all",
-    "seed:undo": "npx sequelize-cli db:seed:undo",
-    "seed:undo:all": "npx sequelize-cli db:seed:undo:all"
+    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
