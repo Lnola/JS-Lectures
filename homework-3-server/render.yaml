@@ -1,0 +1,36 @@
+services:
+  - type: web
+    env: docker
+    name: homework-server1
+    repo: https://github.com/Lnola/JS-Lectures
+    branch: main
+    rootDir: homework-3-server
+    buildFilter:
+      paths:
+        - homework-3-server/**
+    envVars:
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: homework-db1
+          property: host
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: homework-db1
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: homework-db1
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: homework-db1
+          property: password
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: homework-db1
+          property: port
+      - key: PORT
+        value: 8000
+
+databases:
+  - name: homework-db1
