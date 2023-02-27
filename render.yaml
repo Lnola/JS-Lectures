@@ -5,6 +5,7 @@ services:
     repo: https://github.com/Lnola/JS-Lectures
     branch: main
     rootDir: homework-3-server
+    plan: free
     buildFilter:
       paths:
         - homework-3-server/**
@@ -34,3 +35,4 @@ services:
 
 databases:
   - name: homework-db1
+  - plan: free
