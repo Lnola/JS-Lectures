@@ -1,10 +1,11 @@
-import { DataType, Model, NUMBER } from 'sequelize';
+import { DataType, Model } from 'sequelize';
 
 interface IFields {
   INTEGER?: DataType;
   TEXT?: DataType;
   BOOLEAN?: DataType;
   DATE?: DataType;
+  STRING?: DataType;
 }
 
 interface IComment {
@@ -13,6 +14,7 @@ interface IComment {
   text: string;
   isLiked: boolean;
   createdAt: Date;
+  userId: string;
 }
 
 class CommentModel extends Model implements IComment {
@@ -21,8 +23,9 @@ class CommentModel extends Model implements IComment {
   text!: string;
   isLiked!: boolean;
   createdAt!: Date;
+  userId!: string;
 
-  static fields({ INTEGER, TEXT, BOOLEAN, DATE }: IFields) {
+  static fields({ INTEGER, TEXT, BOOLEAN, DATE, STRING }: IFields) {
     return {
       id: {
         type: INTEGER,
@@ -44,6 +47,28 @@ class CommentModel extends Model implements IComment {
       createdAt: {
         type: DATE,
         allowNull: false,
+      },
+      userId: {
+        type: STRING,
+        allowNull: false,
+      },
+    };
+  }
+
+  get default() {
+    return {
+      id: this.id,
+      line: this.line,
+      text: this.text,
+      isLiked: this.isLiked,
+      createdAt: this.createdAt,
+    };
+  }
+
+  static scopes() {
+    return {
+      defaultScope: {
+        attributes: { exclude: ['userId'] },
       },
     };
   }

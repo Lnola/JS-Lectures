@@ -34,9 +34,15 @@ const create = async (req: Request, res: Response) => {
   try {
     const { line, text } = req.body;
     if (!line || !text) throw 'Comment is missing parameters!';
-    const newComment = { line, text, isLiked: false, createdAt: new Date() };
-    const comment = await Comment.create(newComment);
-    return res.status(201).json({ comment });
+    const newComment = {
+      line,
+      text,
+      isLiked: false,
+      createdAt: new Date(),
+      userId: req.headers.key,
+    };
+    const comment = (await Comment.create(newComment)) as CommentModel;
+    return res.status(201).json({ comment: comment.default });
   } catch (err) {
     res.status(400).json({ message: err });
   }
@@ -54,7 +60,7 @@ const updateIsLiked = async (req: Request, res: Response) => {
         .json({ message: `Comment with id ${id} doesn't exist!` });
     comment.isLiked = isLiked;
     await comment.save();
-    return res.status(204).json({ comment });
+    return res.sendStatus(204);
   } catch (err) {
     res.status(400).json({ message: err });
   }
