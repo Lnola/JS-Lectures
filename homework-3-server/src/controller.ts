@@ -7,9 +7,11 @@ const fetchCode = (_req: Request, res: Response) => {
   return res.status(200).json({ code });
 };
 
-const fetchAll = async (_req: Request, res: Response) => {
+const fetchAll = async (req: Request, res: Response) => {
   try {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({
+      where: { userId: req.headers.key },
+    });
     return res.status(200).json({ comments });
   } catch (err) {
     res.status(400).json({ message: err });
@@ -19,12 +21,16 @@ const fetchAll = async (_req: Request, res: Response) => {
 const fetchById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const comment = await Comment.findByPk(id);
+    const comment = (await Comment.unscoped().findByPk(id)) as CommentModel;
+    if (comment!.userId !== req.headers.key)
+      return res
+        .status(401)
+        .json({ message: `You do not have access to this resource!` });
     if (!comment)
       return res
         .status(404)
         .json({ message: `Comment with id ${id} doesn't exist!` });
-    return res.status(200).json({ comment });
+    return res.status(200).json({ comment: comment.default });
   } catch (err) {
     res.status(400).json({ message: err });
   }
@@ -53,7 +59,11 @@ const updateIsLiked = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { isLiked } = req.body;
     if (isLiked == null) throw 'Comment is missing isLiked parameter';
-    const comment = (await Comment.findByPk(id)) as CommentModel;
+    const comment = (await Comment.unscoped().findByPk(id)) as CommentModel;
+    if (comment!.userId !== req.headers.key)
+      return res
+        .status(401)
+        .json({ message: `You do not have access to this resource!` });
     if (!comment)
       return res
         .status(404)
@@ -69,7 +79,11 @@ const updateIsLiked = async (req: Request, res: Response) => {
 const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const comment = await Comment.findByPk(id);
+    const comment = (await Comment.unscoped().findByPk(id)) as CommentModel;
+    if (comment!.userId !== req.headers.key)
+      return res
+        .status(401)
+        .json({ message: `You do not have access to this resource!` });
     if (!comment)
       return res
         .status(404)
