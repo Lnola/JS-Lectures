@@ -1,4 +1,5 @@
 import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
+import { forEach, invoke } from 'lodash';
 
 const sequelize = new Sequelize(
   process.env.POSTGRES_DB || '',
@@ -16,6 +17,11 @@ const fields = CommentModel.fields(DataTypes) as any;
 const dbOptions = CommentModel.dbOptions() as any;
 Object.assign(dbOptions, { sequelize });
 const Comment = CommentModel.init(fields, dbOptions) as ModelStatic<Model>;
+
+const scopes = invoke(Comment, 'scopes');
+forEach(scopes, (scope, name) =>
+  Comment.addScope(name, scope, { override: true })
+);
 
 export { Comment };
 export default sequelize;
