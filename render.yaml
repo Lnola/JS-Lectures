@@ -35,4 +35,4 @@ services:
 
 databases:
   - name: homework-db1
-  - plan: free
+    plan: free
