@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: homework
       POSTGRES_PASSWORD: homework
     ports:
-      - 8765:5432
+      - 5432:5432
 
   server:
     build: ./
