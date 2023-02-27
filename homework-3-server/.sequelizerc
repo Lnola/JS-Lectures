@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 module.exports = {
-  config: 'src/db/config.json',
+  config: 'src/db/config.js',
   'migrations-path': 'src/db/migrations',
   'models-path': 'src/',
 };
